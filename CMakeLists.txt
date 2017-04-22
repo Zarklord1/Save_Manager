@@ -47,7 +47,7 @@ set(DATADIR data)
 set(SRCINCLUDES "${SRCDIR}")
 
 set(INCLUDES "${SRCINCLUDES}" "${CMAKE_CURRENT_SOURCE_DIR}/build" "${PORTLIBS}/include" "${PORTLIBS}/include/freetype2")
-set(LINKFLAGS "-L${PROJECT_SOURCE_DIR} -L${DEVKITPPC}/ -L${DEVKITPPC}/lib/gcc/powerpc-eabi/4.8.2 -L${PORTLIBS}/lib")
+set(LINKFLAGS "-L${PROJECT_SOURCE_DIR} -L${DEVKITPPC}/ -L${DEVKITPPC}/lib/gcc/powerpc-eabi/4.8.2 -L${LIBOGC_LIB} -L${PORTLIBS}/lib")
 
 file(GLOB_RECURSE C_FILES ${SRCDIR}/*.c)
 file(GLOB_RECURSE CPP_FILES ${SRCDIR}/*.cpp)

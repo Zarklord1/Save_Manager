@@ -105,25 +105,27 @@ void Scrollbar::OnBoxButtonHold(GuiButton *button, const GuiController *controll
 	listChanged(MaxHeight - MinHeight, currentPosition);
 }
 
+void Scrollbar::Refresh() {
+	listChanged(MaxHeight - MinHeight, currentPosition);
+}
+
 void Scrollbar::SetEntryCount(int cnt) {
 	if(EntryCount == cnt)
 		return;
 
-	f32 CurrentYPixel = getCurrentScrollYPixel(MaxHeight - MinHeight);
 	EntryCount = cnt;
 	UpdateYScale();
-	currentPosition = getNewPosition(MaxHeight -MinHeight, CurrentYPixel);
-	listChanged(MaxHeight -MinHeight, currentPosition);
+	currentPosition = MaxHeight - MinHeight;
+	listChanged(MaxHeight - MinHeight, currentPosition);
 }
 
 void Scrollbar::SetHeightOfEntries(f32 height) {
 	if(heightOfEntries == height)
 		return;
 
-	f32 CurrentYPixel = getCurrentScrollYPixel(MaxHeight - MinHeight);
 	heightOfEntries = height;
 	UpdateYScale();
-	currentPosition = getNewPosition(MaxHeight - MinHeight, CurrentYPixel);
+	currentPosition = MaxHeight - MinHeight;
 	listChanged(MaxHeight - MinHeight, currentPosition);
 }
 

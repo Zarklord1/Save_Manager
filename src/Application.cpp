@@ -47,7 +47,7 @@ Application::Application()
     controller[4] = new WPadController(GuiTrigger::CHANNEL_5);
     
     //! create bgMusic
-    bgMusic = new GuiSound(Resources::GetFile("bgMusic.ogg"), Resources::GetFileSize("bgMusic.ogg"));
+    bgMusic = new GuiSound(Resources::GetFile("sounds/bgMusic.ogg"), Resources::GetFileSize("sounds/bgMusic.ogg"));
     bgMusic->SetLoop(true);
     bgMusic->Play();
     bgMusic->SetVolume(50);
@@ -197,7 +197,7 @@ bool Application::procUI(void)
 
                 //! setup default Font
                 log_printf("Initialize main font system\n");
-                FreeTypeGX *fontSystem = new FreeTypeGX(Resources::GetFile("font.ttf"), Resources::GetFileSize("font.ttf"), true);
+                FreeTypeGX *fontSystem = new FreeTypeGX(Resources::GetFile("fonts/font.ttf"), Resources::GetFileSize("fonts/font.ttf"), true);
                 GuiText::setPresetFont(fontSystem);
 
                 if(mainWindow == NULL)

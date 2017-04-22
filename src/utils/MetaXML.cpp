@@ -1,11 +1,11 @@
 #include <string.h>
 #include <stdlib.h>
-#include "tinyxml.h"
+#include "tinyxml2.h"
+#include "logger.h"
 
 #include "MetaXML.h"
 
-bool MetaXML::LoadMetaXMLData(const char* filename, const char * region)
-{
+bool MetaXML::LoadMetaXMLData(const char * filename, const char * region) {
 	ShortName.clear();
 	LongName.clear();
 	Publisher.clear();
@@ -14,55 +14,59 @@ bool MetaXML::LoadMetaXMLData(const char* filename, const char * region)
 	MaxCommonSize.clear();
 	MaxAccountSize.clear();
 
-	TiXmlDocument xmlDoc(filename);
-	if(!xmlDoc.LoadFile())
+	tinyxml2::XMLDocument doc;
+	doc.LoadFile(filename);
+	if(doc.ErrorID() != 0)
 		return false;
 
-	TiXmlElement *appNode =  xmlDoc.FirstChildElement("menu");
-	if(!appNode)
-		return false;
-
-	TiXmlElement *node = NULL;
+	tinyxml2::XMLElement * curElement = NULL;
 	std::string temp("");
 
 	temp = "shortname_";
 	temp += region;
-	node = appNode->FirstChildElement(temp);
-	if(node && node->FirstChild() && node->FirstChild()->Value())
-		ShortName = node->FirstChild()->Value();
+	curElement = doc.FirstChildElement("menu")->FirstChildElement(temp.c_str());
+	if (curElement && curElement->GetText()) {
+		ShortName = curElement->GetText();
+	}
 
 	temp = "longname_";
 	temp += region;
-	node = appNode->FirstChildElement(temp);
-	if(node && node->FirstChild() && node->FirstChild()->Value())
-		LongName = node->FirstChild()->Value();
+	curElement = doc.FirstChildElement("menu")->FirstChildElement(temp.c_str());
+	if (curElement && curElement->GetText()) {
+		LongName = curElement->GetText();
+	}
 
 	temp = "publisher_";
 	temp += region;
-	node = appNode->FirstChildElement(temp);
-	if(node && node->FirstChild() && node->FirstChild()->Value())
-		Publisher = node->FirstChild()->Value();
+	curElement = doc.FirstChildElement("menu")->FirstChildElement(temp.c_str());
+	if (curElement && curElement->GetText()) {
+		Publisher = curElement->GetText();
+	}
 
-	node = appNode->FirstChildElement("product_code");
-	if(node && node->FirstChild() && node->FirstChild()->Value())
-		ProductCode = node->FirstChild()->Value();
+	curElement = doc.FirstChildElement("menu")->FirstChildElement("product_code");
+	if (curElement && curElement->GetText()) {
+		ProductCode = curElement->GetText();
+	}
 
-	node = appNode->FirstChildElement("title_id");
-	if(node && node->FirstChild() && node->FirstChild()->Value())
-		TitleID = node->FirstChild()->Value();
+	curElement = doc.FirstChildElement("menu")->FirstChildElement("title_id");
+	if (curElement && curElement->GetText()) {
+		TitleID = curElement->GetText();
 		TitleID.insert(8,"-");
+	}
 
-	node = appNode->FirstChildElement("common_save_size");
-	if(node && node->FirstChild() && node->FirstChild()->Value())
-		MaxCommonSize = node->FirstChild()->Value();
-		u64 commonDec = strtol(MaxCommonSize.c_str(),NULL,16);
+	curElement = doc.FirstChildElement("menu")->FirstChildElement("common_save_size");
+	if (curElement && curElement->GetText()) {
+		MaxCommonSize = curElement->GetText();
+		u64 commonDec = strtoll(MaxCommonSize.c_str(),NULL,16);
 		MaxCommonSize = convertSize(commonDec);
+	}
 
-	node = appNode->FirstChildElement("account_save_size");
-	if(node && node->FirstChild() && node->FirstChild()->Value())
-		MaxAccountSize = node->FirstChild()->Value();
-		u64 accountDec = strtol(MaxAccountSize.c_str(),NULL,16);
+	curElement = doc.FirstChildElement("menu")->FirstChildElement("account_save_size");
+	if (curElement && curElement->GetText()) {
+		MaxAccountSize = curElement->GetText();
+		u64 accountDec = strtoll(MaxAccountSize.c_str(),NULL,16);
 		MaxAccountSize = convertSize(accountDec);
+	}
 		
 	return true;
 }

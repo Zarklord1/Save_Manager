@@ -45,6 +45,7 @@ class Scrollbar : public GuiElement, public sigslot::has_slots<>
 		void SetPageSize(int size);
 		void SetEntryCount(int cnt);
 		void SetHeightOfEntries(f32 height);
+		void Refresh();
 	protected:
 		void UpdateYScale();
 		f32 getCurrentScrollYPixel(f32 scrollHeight);

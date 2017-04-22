@@ -50,12 +50,12 @@ extern "C" {
 #define EXIT_HBL_EXIT               0xFFFFFFFE
 #define EXIT_RELAUNCH_ON_LOAD       0xFFFFFFFD
 
-#define SM_NAME	   "Placeholder"
+#define SM_NAME	   "Saving U"
 #define SM_VERSION "0.1"
 
 #define NAND_SAVE_PATH 	"storage_mlc:/usr/save/00050000"
 #define USB_SAVE_PATH 	"storage_usb:/usr/save/00050000"
-#define SM_SAVES_FOLDER "sd:/" SM_NAME
+#define SM_SAVES_FOLDER "sd:/SavingU"
 
 #ifdef __cplusplus
 }
